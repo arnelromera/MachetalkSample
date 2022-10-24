@@ -1,9 +1,5 @@
-import java.util.Arrays;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Livelogin {
@@ -13,7 +9,7 @@ public class Livelogin {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\fdcar\\Downloads\\Automatio\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		
-		String[] userList = {"d08"};
+		//String[] userList = {"d08"};
 		
 		driver.manage().window().maximize();
 		driver.get("https://dev-front.machetalk.jp/");
@@ -23,31 +19,34 @@ public class Livelogin {
 		test.login(driver);
 		
 		Thread.sleep(1000);
+		Dailybonus dailyLoginBonus = new Dailybonus();
+		dailyLoginBonus.Bonus("dailybonus", driver);
+
 		
-		liverList(driver,userList);
+		//liverList(driver,userList);
 
 	}
 	
-	public static  void liverList(WebDriver driver,String[] userList)
-	{
-		int j=0;
-		List<WebElement> users = driver.findElements(By.xpath("//font[@style='vertical-align: inherit;']"));
-		for(int i=0;i<users.size();i++)
-			{
-			String name = users.get(i).getText();
-			
-			List<String> itemsNeededList = Arrays.asList(userList);
-			if(itemsNeededList.contains(name))
-				{
-				//click on Add to cart
-				driver.findElements(By.xpath("//img[@class='thumbnail']")).get(i).click();
-					if(j == userList.length)
-						{
-						break;
-						}
-				}
-			}
-		
-	}
+//	public static  void liverList(WebDriver driver,String[] userList)
+//	{
+//		int j=0;
+//		List<WebElement> users = driver.findElements(By.xpath("//font[@style='vertical-align: inherit;']"));
+//		for(int i=0;i<users.size();i++)
+//			{
+//			String name = users.get(i).getText();
+//			
+//			List<String> itemsNeededList = Arrays.asList(userList);
+//			if(itemsNeededList.contains(name))
+//				{
+//				//click on Add to cart
+//				driver.findElements(By.xpath("//img[@class='thumbnail']")).get(i).click();
+//					if(j == userList.length)
+//						{
+//						break;
+//						}
+//				}
+//			}
+//		
+//	}
 
 }
