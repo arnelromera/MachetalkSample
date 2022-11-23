@@ -1,9 +1,13 @@
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Open_Broadcast {
 
@@ -14,21 +18,20 @@ public class Open_Broadcast {
 		options.addArguments("--use-fake-ui-for-media-stream=10");
 		
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\fdcar\\Downloads\\Automatio\\chromedriver_win32\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
+		WebDriver driver = new ChromeDriver(options);
 		
-		driver = new ChromeDriver(options);
-		driver.get("https://dev-front.machetalk.jp/liver/");
 		driver.manage().window().maximize();
+		driver.get("https://dev-front.machetalk.jp/liver/");
 		
 		driver.findElement(By.className("login")).click();
 		
-		Login test = new Login();
-		test.login(driver);
+//		Login test = new Login();
+//		test.login(driver);
 		
 //		Register test = new Register();
 //		test.register();
 		
-		//Bonus("login", driver);
+		Bonus("login", driver);
 		Thread.sleep(1000);
 		Bonus("dailybonus", driver);
 		driver.findElement(By.xpath("//a[@class='button size_m']")).click();
@@ -66,25 +69,22 @@ public class Open_Broadcast {
 	
 	private static void Bonus(String act, WebDriver driver) throws InterruptedException
 	{
+		WebDriverWait w =new WebDriverWait(driver,Duration.ofSeconds(10));
 		switch (act) {
 		case "dailybonus" :
-			int d = 5;
-			
 			try {
 				boolean doGetBonusPresence = driver.findElement(By.id("doGetBonus")).isDisplayed();
 				boolean doGetBonusEnabled = driver.findElement(By.id("doGetBonus")).isDisplayed();
 				if(doGetBonusPresence == true && doGetBonusEnabled == true)	
 				{
 					driver.findElement(By.id("doGetBonus")).click();
-					Thread.sleep(1000);
-					driver.findElement(By.cssSelector("button.btn_style")).click();			
+					w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn_style.btn_green.modal_close")));
+					driver.findElement(By.cssSelector(".btn_style.btn_green.modal_close")).click();			
 				}
 			}
 			catch(Exception e){
 				
-				for(int i=0; i<d; i++) {
-					System.out.println("Teset");
-				}
+				System.out.println("The get bonus modal is not displayed.");
 			}
 			break;
 			
@@ -93,31 +93,14 @@ public class Open_Broadcast {
 			
 		case "login" :
 			driver.findElement(By.className("login")).click();
-			driver.findElement(By.name("login_mail")).sendKeys("rktest6@gmail.com");
+			driver.findElement(By.name("login_mail")).sendKeys("2021-4@gmail.com");
 			driver.findElement(By.name("login_password")).sendKeys("admin");
 			driver.findElement(By.className("btn_style")).click();
 			break;
 		  default :
 				break;
 		}
-//		//check is the modal is displayed
-//		try {
-//			boolean doGetBonusPresence = driver.findElement(By.id("doGetBonus")).isDisplayed();
-//			boolean doGetBonusEnabled = driver.findElement(By.id("doGetBonus")).isDisplayed();
-//			if(doGetBonusPresence == true && doGetBonusEnabled == true)	
-//			{
-//				driver.findElement(By.id("doGetBonus")).click();
-//				Thread.sleep(1000);
-//				driver.findElement(By.cssSelector("button.btn_style")).click();
-//				return true;
-//			}
-//		} 
-//		catch(Exception e){
-//			return false;
-//		}
-		
 
-		
 		
 	}
 	
