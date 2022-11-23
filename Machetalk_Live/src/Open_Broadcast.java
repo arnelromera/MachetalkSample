@@ -34,6 +34,7 @@ public class Open_Broadcast {
 		Bonus("login", driver);
 		Thread.sleep(1000);
 		Bonus("dailybonus", driver);
+		
 		driver.findElement(By.xpath("//a[@class='button size_m']")).click();
 		driver.findElement(By.id("count_text")).sendKeys("automated broadcast");
 		driver.findElement(By.xpath("//ul/li[2]")).click();
@@ -67,7 +68,7 @@ public class Open_Broadcast {
 		
 	}
 	
-	private static void Bonus(String act, WebDriver driver) throws InterruptedException
+	static void Bonus(String act, WebDriver driver) throws InterruptedException
 	{
 		WebDriverWait w =new WebDriverWait(driver,Duration.ofSeconds(10));
 		switch (act) {
@@ -93,7 +94,7 @@ public class Open_Broadcast {
 			
 		case "login" :
 			driver.findElement(By.className("login")).click();
-			driver.findElement(By.name("login_mail")).sendKeys("2021-4@gmail.com");
+			driver.findElement(By.name("login_mail")).sendKeys("2021-1@gmail.com");
 			driver.findElement(By.name("login_password")).sendKeys("admin");
 			driver.findElement(By.className("btn_style")).click();
 			break;

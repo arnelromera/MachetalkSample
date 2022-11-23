@@ -3,11 +3,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.bidi.log.Log;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,9 +25,9 @@ public class joinOpenBroadCast {
 		driver.manage().window().maximize();
 		driver.get("https://dev-front.machetalk.jp/");
 		
-		String[] broadcastName = {"Chilling"};
-		String[] giftCategoryName = {"定番"};
-		String[] giftName = {"流石です"};
+		String[] broadcastName = {"automated broadcast"};
+		String[] giftCategoryName = {"トーク"};
+		String[] giftName = {"ohisasiburi"};
 		
 		driver.findElement(By.cssSelector(".button_login.btn_style.btn_green-o")).click();
 		
@@ -39,9 +37,12 @@ public class joinOpenBroadCast {
 		Login test = new Login();
 		test.login(driver);
 		
+		Thread.sleep(1000);
+		Open_Broadcast.Bonus("dailybonus",driver);
+
 //		w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#reload_update")));
 //		driver.findElement(By.cssSelector("#reload_update")).click();
-		Thread.sleep(10000);
+		Thread.sleep(15000);
 		joinBroadcast(driver,broadcastName);
 		
 		Thread.sleep(3000);
@@ -58,9 +59,8 @@ public class joinOpenBroadCast {
 		Thread.sleep(10000);
 		
 		int a = 5;
-		for(int i = 0; i<a;i++)
-		{
-			driver.findElement(By.cssSelector("#inputComment")).sendKeys("Automated comments");
+		for(int i=0; i<a; i++) {
+			driver.findElement(By.cssSelector("#inputComment")).sendKeys("Automated Comments");
 			driver.findElement(By.cssSelector("button[type='submit']")).click();
 		}
 		
@@ -72,6 +72,10 @@ public class joinOpenBroadCast {
 			
 //		driver.switchTo().window(parentId);
 	}
+//	private static char[] broadcastCommentList(int i) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	public static void joinBroadcast(WebDriver driver,String[] broadcastName) {
 		List<WebElement> broadcast = driver.findElements(By.xpath("//div[@class='room']"));
 		
@@ -81,13 +85,15 @@ public class joinOpenBroadCast {
 			
 			List<String> itemsNeededList = Arrays.asList(broadcastName);
 			
-			if(itemsNeededList.contains(broadcastlist)) 
-			{
-				driver.findElements(By.xpath("//div[@class='liver ng-scope']")).get(i).click();
-			}
+				if(itemsNeededList.contains(broadcastlist)) 
+				{
+					driver.findElements(By.xpath("//div[@class='liver ng-scope']")).get(i).click();
+				}
 		}
 		
 	}
+
+	
 	public static void categoryList(WebDriver driver,String[] giftCategoryName) {
 		List<WebElement> categoryName = driver.findElements(By.cssSelector(".swiper-slide"));
 		
@@ -97,10 +103,10 @@ public class joinOpenBroadCast {
 			
 			List<String> giftCategoryNameList = Arrays.asList(giftCategoryName);
 			
-			if(giftCategoryNameList.contains(categorylist)) 
-			{
-				driver.findElements(By.cssSelector(".swiper-slide")).get(i).click();
-			}
+				if(giftCategoryNameList.contains(categorylist)) 
+				{
+					driver.findElements(By.cssSelector(".swiper-slide")).get(i).click();
+				}
 		}
 		
 	}
@@ -113,15 +119,15 @@ public class joinOpenBroadCast {
 			String giftNameList = giftNameElement.get(i).getText();
 			
 			List<String> giftasdfNameList = Arrays.asList(giftName);
-		
-			if(giftasdfNameList.contains(giftNameList)) 
-			{
-				int count = 5;
-				for(int i1=0; i1<count; i1++) {
-					driver.findElements(By.xpath("//div[@class='list-item ng-scope']")).get(i).click();
+			
+				if(giftasdfNameList.contains(giftNameList)) 
+				{
+					WebElement a = driver.findElements(By.xpath("//div[@class='list-item ng-scope']")).get(i);
+					int count = 5;
+					for(int i1=0; i1<count; i1++) {
+						a.click();
+					}
 				}
-				
-			}
 		}
 		
 	}
