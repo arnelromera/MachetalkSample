@@ -63,8 +63,8 @@ public class Open_Broadcast {
 		//actions.click().build().perform();
 		Thread.sleep(1000);
 		driver.findElement(By.id("btn-sound_own")).click();
-		Thread.sleep(5000);
-		driver.findElement(By.id("btn-invite")).click();
+//		Thread.sleep(5000);
+//		driver.findElement(By.id("btn-invite")).click();
 		
 	}
 	
@@ -94,7 +94,7 @@ public class Open_Broadcast {
 			
 		case "login" :
 			driver.findElement(By.className("login")).click();
-			driver.findElement(By.name("login_mail")).sendKeys("2021-1@gmail.com");
+			driver.findElement(By.name("login_mail")).sendKeys("2021-8@gmail.com");
 			driver.findElement(By.name("login_password")).sendKeys("admin");
 			driver.findElement(By.className("btn_style")).click();
 			break;

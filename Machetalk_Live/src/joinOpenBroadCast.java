@@ -1,4 +1,5 @@
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +26,7 @@ public class joinOpenBroadCast {
 		driver.manage().window().maximize();
 		driver.get("https://dev-front.machetalk.jp/");
 		
-		String[] broadcastName = {"automated broadcast"};
+		String[] broadcastName = {"gdgddg"};
 		String[] giftCategoryName = {"トーク"};
 		String[] giftName = {"ohisasiburi"};
 		
@@ -34,18 +35,36 @@ public class joinOpenBroadCast {
 		WebDriverWait w =new WebDriverWait(driver,Duration.ofSeconds(10));
 		w.until(ExpectedConditions.visibilityOfElementLocated(By.name("login_mail")));
 		
-		Login test = new Login();
-		test.login(driver);
+		try {
+			Login test = new Login();
+			test.login(driver);
+		}
+		catch(Exception e) {
+			 e.printStackTrace();
+			 System.out.println("Error when logging in. Please check the cridentials");
+			 System.exit(1);
+		}
 		
-		Thread.sleep(1000);
+		
+		Thread.sleep(5000);
+		
+		
 		Open_Broadcast.Bonus("dailybonus",driver);
 
 //		w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#reload_update")));
 //		driver.findElement(By.cssSelector("#reload_update")).click();
 		Thread.sleep(15000);
-		joinBroadcast(driver,broadcastName);
+		try {
+			joinBroadcast(driver,broadcastName);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			 System.out.println("Error when the user tries to join to a broadcast. Please check the cridentials/Element");
+			 System.exit(1);
+		}
 		
-		Thread.sleep(3000);
+		
+		Thread.sleep(5000);
 		Set<String> windows = driver.getWindowHandles(); //[parentid,childid,subchildId]
 
 		Iterator<String>it = windows.iterator();
@@ -56,27 +75,37 @@ public class joinOpenBroadCast {
 		
 		driver.switchTo().window(childId);
 
-		Thread.sleep(10000);
+		Thread.sleep(50000);
 		
-		int a = 5;
-		for(int i=0; i<a; i++) {
-			driver.findElement(By.cssSelector("#inputComment")).sendKeys("Automated Comments");
-			driver.findElement(By.cssSelector("button[type='submit']")).click();
+		//comment section
+		try {
+			ArrayList<String> contain = new ArrayList<String>(Arrays.asList("Automated comment 1", "Automated comment 2", "Automated comment 3", "Automated comment 4", "Automated comment 5", "Automated comment 6", "Automated comment 7" ));
+			for(String s : contain) {
+				if(s.contains(s)) {
+					String a = s;
+					driver.findElement(By.cssSelector("#inputComment")).sendKeys(a);
+					driver.findElement(By.cssSelector("button[type='submit']")).click();
+				}
+			}	
+		}
+		catch(Exception e) {
+			System.out.println("Some error in the comment section");			
 		}
 		
-//		driver.findElement(By.xpath("//body[1]/div[2]/div[2]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]")).click();
+		
+		//select category tab
 		categoryList(driver,giftCategoryName);
 		
+		//select gift
 		Thread.sleep(5000);
 		addGift(driver,giftName);
 			
 //		driver.switchTo().window(parentId);
 	}
-//	private static char[] broadcastCommentList(int i) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	
+	//join brooadcast method
 	public static void joinBroadcast(WebDriver driver,String[] broadcastName) {
+		int j=0;
 		List<WebElement> broadcast = driver.findElements(By.xpath("//div[@class='room']"));
 		
 		for(int i=0; i<broadcast.size(); i++) {
@@ -87,14 +116,19 @@ public class joinOpenBroadCast {
 			
 				if(itemsNeededList.contains(broadcastlist)) 
 				{
+					j++;
 					driver.findElements(By.xpath("//div[@class='liver ng-scope']")).get(i).click();
+					if(j == broadcastName.length) {
+						break;
+					}
 				}
 		}
 		
 	}
 
-	
+	//category tab method
 	public static void categoryList(WebDriver driver,String[] giftCategoryName) {
+		int j=0;
 		List<WebElement> categoryName = driver.findElements(By.cssSelector(".swiper-slide"));
 		
 		for(int i=0; i<categoryName.size(); i++) {
@@ -105,13 +139,20 @@ public class joinOpenBroadCast {
 			
 				if(giftCategoryNameList.contains(categorylist)) 
 				{
+					j++;
 					driver.findElements(By.cssSelector(".swiper-slide")).get(i).click();
+					if(j == giftCategoryName.length) {
+						break;
+					}
 				}
 		}
 		
 	}
+	
+	//gifting method
 	public static void addGift(WebDriver driver,String[] giftName) {
 		
+		int j=0;
 		List<WebElement> giftNameElement = driver.findElements(By.xpath("//div[@class='list-item ng-scope']/p"));
 		
 		for(int i=0; i<giftNameElement.size(); i++) {
@@ -122,10 +163,14 @@ public class joinOpenBroadCast {
 			
 				if(giftasdfNameList.contains(giftNameList)) 
 				{
+					j++;
 					WebElement a = driver.findElements(By.xpath("//div[@class='list-item ng-scope']")).get(i);
 					int count = 5;
 					for(int i1=0; i1<count; i1++) {
 						a.click();
+					}
+					if(j == giftName.length) {
+						break;
 					}
 				}
 		}
