@@ -1,13 +1,14 @@
 import java.time.Duration;
-
+import java.util.NoSuchElementException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import com.google.common.base.Function;
 
 public class Open_Broadcast {
 
@@ -30,28 +31,27 @@ public class Open_Broadcast {
 		
 //		Register test = new Register();
 //		test.register();
-		
 		Bonus("login", driver);
-		Thread.sleep(1000);
+		
+		Thread.sleep(3000);
 		Bonus("dailybonus", driver);
 		
 		driver.findElement(By.xpath("//a[@class='button size_m']")).click();
 		driver.findElement(By.id("count_text")).sendKeys("automated broadcast");
 		driver.findElement(By.xpath("//ul/li[2]")).click();
 		driver.findElement(By.cssSelector("button.btn_style")).click();
-		Thread.sleep(6000);
+		
+		Thread.sleep(5000);
 		driver.findElement(By.cssSelector("button.button_open")).click();
 		
-		Thread.sleep(10000);
 		
-		// Locating the Main Menu (Parent element)
-		WebElement mainMenu = driver.findElement(By.className("video"));
-		
+		Thread.sleep(6000);
+		WebElement video = driver.findElement(By.className("video"));
 		//Instantiating Actions class
 		Actions actions = new Actions(driver);
 		
 		//Hovering on main menu
-		actions.moveToElement(mainMenu);
+		actions.moveToElement(video);
 
 		// Locating the element from Sub Menu
 		//WebElement subMenu = driver.findElement(By.id("btn-sound_own"));
@@ -61,7 +61,7 @@ public class Open_Broadcast {
 
 		//build()- used to compile all the actions into a single step 
 		//actions.click().build().perform();
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		driver.findElement(By.id("btn-sound_own")).click();
 //		Thread.sleep(5000);
 //		driver.findElement(By.id("btn-invite")).click();
@@ -70,7 +70,13 @@ public class Open_Broadcast {
 	
 	static void Bonus(String act, WebDriver driver) throws InterruptedException
 	{
-		WebDriverWait w =new WebDriverWait(driver,Duration.ofSeconds(10));
+		// Waiting 30 seconds for an element to be present on the page, checking
+		// for its presence once every 5 seconds.
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+	       .withTimeout(Duration.ofSeconds(30L))
+	       .pollingEvery(Duration.ofSeconds(5L))
+	       .ignoring(NoSuchElementException.class);
+		
 		switch (act) {
 		case "dailybonus" :
 			try {
@@ -78,8 +84,10 @@ public class Open_Broadcast {
 				boolean doGetBonusEnabled = driver.findElement(By.id("doGetBonus")).isDisplayed();
 				if(doGetBonusPresence == true && doGetBonusEnabled == true)	
 				{
+					System.out.println("The daily login modal bonus is displayed");
 					driver.findElement(By.id("doGetBonus")).click();
-					w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn_style.btn_green.modal_close")));
+					Thread.sleep(5000);
+					System.out.println("The daily login get modal bonus is displayed");
 					driver.findElement(By.cssSelector(".btn_style.btn_green.modal_close")).click();			
 				}
 			}
@@ -93,8 +101,20 @@ public class Open_Broadcast {
 			break;
 			
 		case "login" :
-			driver.findElement(By.className("login")).click();
-			driver.findElement(By.name("login_mail")).sendKeys("2021-8@gmail.com");
+			WebElement doGetBonus = wait.until(new Function<WebDriver, WebElement>() {
+			     public WebElement apply(WebDriver driver) {
+			    	 if(driver.findElement(By.name("login_mail")).isEnabled())	
+						{
+			    		 return driver.findElement(By.name("login_mail"));
+						}
+			    	 else
+			    	 {
+			    		 return null;
+			    	 }
+			     }
+			   });
+			System.out.println("The login page is displayed");
+			doGetBonus.sendKeys("2021-9@gmail.com");
 			driver.findElement(By.name("login_password")).sendKeys("admin");
 			driver.findElement(By.className("btn_style")).click();
 			break;

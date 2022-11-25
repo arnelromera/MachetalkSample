@@ -26,15 +26,20 @@ public class joinOpenBroadCast {
 		driver.manage().window().maximize();
 		driver.get("https://dev-front.machetalk.jp/");
 		
-		String[] broadcastName = {"gdgddg"};
+		String[] broadcastName = {"automated broadcast"};
 		String[] giftCategoryName = {"トーク"};
 		String[] giftName = {"ohisasiburi"};
 		
-		driver.findElement(By.cssSelector(".button_login.btn_style.btn_green-o")).click();
+		// login button
+		WebElement loginButton = driver.findElement(By.cssSelector(".button_login.btn_style.btn_green-o"));
+		String loginButtonText = loginButton.getText();
+		loginButton.click();
+		System.out.println(loginButtonText + "button is clicked");
 		
 		WebDriverWait w =new WebDriverWait(driver,Duration.ofSeconds(10));
 		w.until(ExpectedConditions.visibilityOfElementLocated(By.name("login_mail")));
 		
+		//login modal
 		try {
 			Login test = new Login();
 			test.login(driver);
@@ -48,12 +53,11 @@ public class joinOpenBroadCast {
 		
 		Thread.sleep(5000);
 		
-		
+		//daily login bunos
 		Open_Broadcast.Bonus("dailybonus",driver);
 
-//		w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#reload_update")));
-//		driver.findElement(By.cssSelector("#reload_update")).click();
 		Thread.sleep(15000);
+		//join broadcast
 		try {
 			joinBroadcast(driver,broadcastName);
 		}
@@ -65,14 +69,11 @@ public class joinOpenBroadCast {
 		
 		
 		Thread.sleep(5000);
+		//Switch to child window
 		Set<String> windows = driver.getWindowHandles(); //[parentid,childid,subchildId]
-
 		Iterator<String>it = windows.iterator();
-
 		String parentId = it.next();
-
 		String childId = it.next();
-		
 		driver.switchTo().window(childId);
 
 		Thread.sleep(50000);
