@@ -5,10 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,9 +28,9 @@ public class joinOpenBroadCast {
 		driver.manage().window().maximize();
 		driver.get("https://dev-front.machetalk.jp/");
 		
-		String[] broadcastName = {"automated broadcast"};
-		String[] giftCategoryName = {"トーク"};
-		String[] giftName = {"ohisasiburi"};
+		String[] broadcastName = {"automated broadcat"};
+		String[] giftCategoryName = {"お祝い"};
+		String[] giftName = {"行ってらっしゃい"};
 		
 		// login button
 		WebElement loginButton = driver.findElement(By.cssSelector(".button_login.btn_style.btn_green-o"));
@@ -76,7 +78,7 @@ public class joinOpenBroadCast {
 		String childId = it.next();
 		driver.switchTo().window(childId);
 
-		Thread.sleep(50000);
+		Thread.sleep(15000);
 		
 		//comment section
 		try {
@@ -92,7 +94,6 @@ public class joinOpenBroadCast {
 		catch(Exception e) {
 			System.out.println("Some error in the comment section");			
 		}
-		
 		
 		//select category tab
 		categoryList(driver,giftCategoryName);
@@ -142,9 +143,21 @@ public class joinOpenBroadCast {
 				{
 					j++;
 					driver.findElements(By.cssSelector(".swiper-slide")).get(i).click();
+					System.out.println("The category name is clicked");
 					if(j == giftCategoryName.length) {
 						break;
 					}
+				}
+				else
+				{
+					WebElement category = driver.findElement(By.id("swiper_category"));
+					Actions actions = new Actions(driver);
+					
+					//Hovering on main menu
+					actions.moveToElement(category);
+					
+					driver.findElement(By.xpath("//div[@class='swiper-button-next']")).click();
+					System.out.println("The next button is clicked");
 				}
 		}
 		
@@ -166,14 +179,14 @@ public class joinOpenBroadCast {
 				{
 					j++;
 					WebElement a = driver.findElements(By.xpath("//div[@class='list-item ng-scope']")).get(i);
-					int count = 5;
+					int count = 15;
 					for(int i1=0; i1<count; i1++) {
 						a.click();
 					}
 					if(j == giftName.length) {
 						break;
 					}
-				}
+				}		
 		}
 		
 	}

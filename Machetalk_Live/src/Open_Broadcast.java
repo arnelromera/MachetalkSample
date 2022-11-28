@@ -9,10 +9,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import com.google.common.base.Function;
-
 public class Open_Broadcast {
-
+	
 	public static void main(String[] args) throws InterruptedException {
+		
 		// TODO Auto-generated method stub
 		
 		ChromeOptions options = new ChromeOptions();
@@ -20,6 +20,8 @@ public class Open_Broadcast {
 		
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\fdcar\\Downloads\\Automatio\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver(options);
+		
+		
 		
 		driver.manage().window().maximize();
 		driver.get("https://dev-front.machetalk.jp/liver/");
@@ -36,8 +38,9 @@ public class Open_Broadcast {
 		Thread.sleep(3000);
 		Bonus("dailybonus", driver);
 		
+		
 		driver.findElement(By.xpath("//a[@class='button size_m']")).click();
-		driver.findElement(By.id("count_text")).sendKeys("automated broadcast");
+		driver.findElement(By.id("count_text")).sendKeys("automated broadcat");
 		driver.findElement(By.xpath("//ul/li[2]")).click();
 		driver.findElement(By.cssSelector("button.btn_style")).click();
 		
@@ -73,8 +76,8 @@ public class Open_Broadcast {
 		// Waiting 30 seconds for an element to be present on the page, checking
 		// for its presence once every 5 seconds.
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-	       .withTimeout(Duration.ofSeconds(30L))
-	       .pollingEvery(Duration.ofSeconds(5L))
+	       .withTimeout(Duration.ofSeconds(30))
+	       .pollingEvery(Duration.ofSeconds(5))
 	       .ignoring(NoSuchElementException.class);
 		
 		switch (act) {
@@ -114,18 +117,12 @@ public class Open_Broadcast {
 			     }
 			   });
 			System.out.println("The login page is displayed");
-			doGetBonus.sendKeys("2021-9@gmail.com");
+			doGetBonus.sendKeys("2021-6@gmail.com");
 			driver.findElement(By.name("login_password")).sendKeys("admin");
-			driver.findElement(By.className("btn_style")).click();
+			driver.findElement(By.xpath("//button[@class='btn_style btn_green']")).click();
 			break;
 		  default :
-				break;
+			  break;
 		}
-
-		
 	}
-	
-	
-	
-
 }
