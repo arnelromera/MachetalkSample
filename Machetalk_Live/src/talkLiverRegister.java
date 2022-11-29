@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,9 +18,9 @@ public class talkLiverRegister {
 		
 //		driver.findElement(By.className("login")).click();
 		
-		// Value declaration
+		// field value declaration
 		String url = "https://dev-front.machetalk.jp/liver/";
-		String email = "sampleautomated@gmail.com";
+		String email = "sampleautomated2@gmail.com";
 		String password = "admin";
 		String nickName = "Automated Registration";
 		String ageValue = "18歳";
@@ -33,8 +34,37 @@ public class talkLiverRegister {
 		String activeTimeValue = "夜～深夜";
 		String selfInroductionValue = "Test Test Test";
 		
-		// Edit profile web elements declaration
-//		WebElement cameraIcon = driver.findElement(By.xpath("//div[@id='camera_icon']"));
+		driver.manage().window().maximize(); // maximize window
+		driver.get(url); // get url
+	
+		driver.findElement(By.className("login")).click();
+//		
+//		driver.findElement(By.className("regist")).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.xpath("//input[@name='register_mail']")).sendKeys(email);
+//		driver.findElement(By.xpath("//input[@name='register_password']")).sendKeys(password);
+//		driver.findElement(By.xpath("//input[@name='register_password_conf']")).sendKeys(password);
+//		
+//		driver.findElement(By.xpath("//button[@type='submit']")).click();
+//		
+//		driver.findElement(By.name("register_nickname")).sendKeys(nickName);
+//		driver.findElement(By.id("btnProfileImgUpdate")).click();
+		Thread.sleep(5000);
+		
+		//daily login bunos
+		Open_Broadcast.Bonus("login",driver);
+		
+		
+		Thread.sleep(5000);
+		//daily login bunos
+		Open_Broadcast.Bonus("dailybonus",driver);
+		
+		driver.findElement(By.xpath("//a[contains(.,'プロフィール編集')]")).click();
+		
+		List<WebElement> fieldLabel = driver.findElements(By.xpath("//dl[@class='profile-item']"));
+		
+		// Edit profile web element declaration
+		WebElement cameraIcon = driver.findElement(By.xpath("//div[@id='camera_icon']"));
 //		WebElement nickName = driver.findElement(By.xpath("//input[@class='mail nickname_count']"));
 		WebElement charm = driver.findElement(By.xpath("//input[@class='charm_point charm_point_count']"));
 		WebElement age = driver.findElement(By.xpath("//select[@name='age']"));
@@ -49,25 +79,9 @@ public class talkLiverRegister {
 		WebElement self_introduction = driver.findElement(By.xpath("//textarea[@name='self_introduction']"));
 		WebElement button_submit = driver.findElement(By.xpath("//button[@class='button size_m']"));
 		
-		driver.manage().window().maximize(); // maximize window
-		driver.get(url); // get url
-	
-		driver.findElement(By.className("regist")).click();
-		driver.findElement(By.xpath("//input[@name='register_mail']")).sendKeys(email);
-		driver.findElement(By.xpath("//input[@name='register_password']")).sendKeys(password);
-		driver.findElement(By.xpath("//input[@name='register_password_conf']")).sendKeys(password);
-		
-		driver.findElement(By.xpath("//button[@type='submit']")).click();
-		
-		driver.findElement(By.name("register_nickname")).sendKeys(nickName);
-		driver.findElement(By.id("btnProfileImgUpdate")).click();
-		
-		Thread.sleep(5000);
-		//daily login bunos
-		Open_Broadcast.Bonus("dailybonus",driver);
-		
-		driver.findElement(By.xpath("//a[contains(.,'プロフィール編集')]")).click();
-		 		
+		//Upload a profile image
+//		cameraIcon.sendKeys("C:\\Users\\fdcar\\Downloads\\Image\\image1.jpg");
+		cameraIcon.click();
 		
 		
 		charm.sendKeys("automated test");
@@ -108,7 +122,6 @@ public class talkLiverRegister {
 		int j=0;
 		for(int i=0; i<hobby.size(); i++){
 			String hobbyList = hobby.get(i).getText();
-			
 			List<String> hobbies = Arrays.asList(hobbyValue);
 			if(hobbies.contains(hobbyList)) {
 				j++;
@@ -128,7 +141,7 @@ public class talkLiverRegister {
 		self_introduction.sendKeys(selfInroductionValue);
 		
 		
-		//Submit button
+		//click the submit button
 		button_submit.click();
 		
 	}
