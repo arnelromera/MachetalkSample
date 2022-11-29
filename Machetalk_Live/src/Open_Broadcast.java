@@ -1,5 +1,8 @@
 import java.time.Duration;
 import java.util.NoSuchElementException;
+
+import javax.swing.Action;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,13 +51,18 @@ public class Open_Broadcast {
 		driver.findElement(By.cssSelector("button.button_open")).click();
 		
 		
-		Thread.sleep(6000);
-		WebElement video = driver.findElement(By.className("video"));
+		Thread.sleep(10000);
+//		Thread.sleep(2000);
+		WebElement sound = driver.findElement(By.id("btn-sound_own"));
+		WebElement video = driver.findElement(By.id("btn-invite"));
+		//WebElement video = driver.findElement(By.className("video"));
 		//Instantiating Actions class
 		Actions actions = new Actions(driver);
 		
 		//Hovering on main menu
-		actions.moveToElement(video);
+		actions.moveToElement(sound).click().build().perform();
+		Thread.sleep(6000);
+		actions.moveToElement(video).click().build().perform();
 
 		// Locating the element from Sub Menu
 		//WebElement subMenu = driver.findElement(By.id("btn-sound_own"));
@@ -64,8 +72,8 @@ public class Open_Broadcast {
 
 		//build()- used to compile all the actions into a single step 
 		//actions.click().build().perform();
-		Thread.sleep(2000);
-		driver.findElement(By.id("btn-sound_own")).click();
+//		Thread.sleep(2000);
+//		driver.findElement(By.id("btn-sound_own")).click();
 //		Thread.sleep(5000);
 //		driver.findElement(By.id("btn-invite")).click();
 		
@@ -117,7 +125,7 @@ public class Open_Broadcast {
 			     }
 			   });
 			System.out.println("The login page is displayed");
-			doGetBonus.sendKeys("2021-6@gmail.com");
+			doGetBonus.sendKeys("2021-13@gmail.com");
 			driver.findElement(By.name("login_password")).sendKeys("admin");
 			driver.findElement(By.xpath("//button[@class='btn_style btn_green']")).click();
 			break;

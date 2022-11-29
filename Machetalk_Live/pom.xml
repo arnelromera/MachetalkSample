@@ -17,6 +17,14 @@
 	    <artifactId>testng</artifactId>
 	    <version>7.6.1</version>
 	</dependency>
+	
+	<!-- POI library -->
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi</artifactId>
+		<version>4.1.1</version>
+	</dependency>
+
  </dependencies>
   
   <build>
