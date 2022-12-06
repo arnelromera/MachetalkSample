@@ -31,6 +31,8 @@ public class Open_Broadcast {
 		
 		driver.findElement(By.className("login")).click();
 		
+		test a = new test();
+		
 //		Login test = new Login();
 //		test.login(driver);
 		
@@ -43,7 +45,7 @@ public class Open_Broadcast {
 		
 		
 		driver.findElement(By.xpath("//a[@class='button size_m']")).click();
-		driver.findElement(By.id("count_text")).sendKeys("automated broadcat");
+		driver.findElement(By.id("count_text")).sendKeys(a.roomName);
 		driver.findElement(By.xpath("//ul/li[2]")).click();
 		driver.findElement(By.cssSelector("button.btn_style")).click();
 		
@@ -125,7 +127,7 @@ public class Open_Broadcast {
 			     }
 			   });
 			System.out.println("The login page is displayed");
-			doGetBonus.sendKeys("2021-13@gmail.com");
+			doGetBonus.sendKeys("sampleautomated5@gmail.com");
 			driver.findElement(By.name("login_password")).sendKeys("admin");
 			driver.findElement(By.xpath("//button[@class='btn_style btn_green']")).click();
 			break;

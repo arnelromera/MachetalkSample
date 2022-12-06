@@ -32,6 +32,7 @@ public class joinOpenBroadCast {
 		String[] giftCategoryName = {"お祝い"};
 		String[] giftName = {"行ってらっしゃい"};
 		
+
 		// login button
 		WebElement loginButton = driver.findElement(By.cssSelector(".button_login.btn_style.btn_green-o"));
 		String loginButtonText = loginButton.getText();
@@ -51,7 +52,6 @@ public class joinOpenBroadCast {
 			 System.out.println("Error when logging in. Please check the cridentials");
 			 System.exit(1);
 		}
-		
 		
 		Thread.sleep(5000);
 		
