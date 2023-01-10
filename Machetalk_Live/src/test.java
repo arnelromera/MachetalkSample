@@ -1,5 +1,5 @@
 
 class test {
-	String roomName = "test";
+	String roomName = "Automated Test";
 	
 }

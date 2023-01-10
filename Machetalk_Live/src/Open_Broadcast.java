@@ -24,8 +24,6 @@ public class Open_Broadcast {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\fdcar\\Downloads\\Automatio\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver(options);
 		
-		
-		
 		driver.manage().window().maximize();
 		driver.get("https://dev-front.machetalk.jp/liver/");
 		
@@ -45,6 +43,7 @@ public class Open_Broadcast {
 		
 		
 		driver.findElement(By.xpath("//a[@class='button size_m']")).click();
+		System.out.println("The login button is clicked");
 		driver.findElement(By.id("count_text")).sendKeys(a.roomName);
 		driver.findElement(By.xpath("//ul/li[2]")).click();
 		driver.findElement(By.cssSelector("button.btn_style")).click();
@@ -127,7 +126,7 @@ public class Open_Broadcast {
 			     }
 			   });
 			System.out.println("The login page is displayed");
-			doGetBonus.sendKeys("sampleautomated5@gmail.com");
+			doGetBonus.sendKeys("vccccn@gmail.com");
 			driver.findElement(By.name("login_password")).sendKeys("admin");
 			driver.findElement(By.xpath("//button[@class='btn_style btn_green']")).click();
 			break;

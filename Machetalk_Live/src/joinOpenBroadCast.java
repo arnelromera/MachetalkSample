@@ -28,9 +28,11 @@ public class joinOpenBroadCast {
 		driver.manage().window().maximize();
 		driver.get("https://dev-front.machetalk.jp/");
 		
-		String[] broadcastName = {"automated broadcat"};
-		String[] giftCategoryName = {"お祝い"};
-		String[] giftName = {"行ってらっしゃい"};
+		test a = new test();
+		
+		String broadcastName = a.roomName;
+		String[] giftCategoryName = {"年末"};
+		String[] giftName = {"良いお年を2023"};
 		
 
 		// login button
@@ -80,20 +82,20 @@ public class joinOpenBroadCast {
 
 		Thread.sleep(15000);
 		
-		//comment section
-		try {
-			ArrayList<String> contain = new ArrayList<String>(Arrays.asList("Automated comment 1", "Automated comment 2", "Automated comment 3", "Automated comment 4", "Automated comment 5", "Automated comment 6", "Automated comment 7" ));
-			for(String s : contain) {
-				if(s.contains(s)) {
-					String a = s;
-					driver.findElement(By.cssSelector("#inputComment")).sendKeys(a);
-					driver.findElement(By.cssSelector("button[type='submit']")).click();
-				}
-			}	
-		}
-		catch(Exception e) {
-			System.out.println("Some error in the comment section");			
-		}
+//		//comment section
+//		try {
+//			ArrayList<String> contain = new ArrayList<String>(Arrays.asList("Automated comment 1", "Automated comment 2", "Automated comment 3", "Automated comment 4", "Automated comment 5", "Automated comment 6", "Automated comment 7" ));
+//			for(String s : contain) {
+//				if(s.contains(s)) {
+//					String a = s;
+//					driver.findElement(By.cssSelector("#inputComment")).sendKeys(a);
+//					driver.findElement(By.cssSelector("button[type='submit']")).click();
+//				}
+//			}	
+//		}
+//		catch(Exception e) {
+//			System.out.println("Some error in the comment section");			
+//		}
 		
 		//select category tab
 		categoryList(driver,giftCategoryName);
@@ -106,7 +108,7 @@ public class joinOpenBroadCast {
 	}
 	
 	//join brooadcast method
-	public static void joinBroadcast(WebDriver driver,String[] broadcastName) {
+	public static void joinBroadcast(WebDriver driver,String broadcastName) {
 		int j=0;
 		List<WebElement> broadcast = driver.findElements(By.xpath("//div[@class='room']"));
 		
@@ -120,7 +122,7 @@ public class joinOpenBroadCast {
 				{
 					j++;
 					driver.findElements(By.xpath("//div[@class='liver ng-scope']")).get(i).click();
-					if(j == broadcastName.length) {
+					if(j == broadcastName.length()) {
 						break;
 					}
 				}
@@ -179,7 +181,7 @@ public class joinOpenBroadCast {
 				{
 					j++;
 					WebElement a = driver.findElements(By.xpath("//div[@class='list-item ng-scope']")).get(i);
-					int count = 15;
+					int count = 50;
 					for(int i1=0; i1<count; i1++) {
 						a.click();
 					}
@@ -188,8 +190,5 @@ public class joinOpenBroadCast {
 					}
 				}		
 		}
-		
 	}
-	
-
 }
